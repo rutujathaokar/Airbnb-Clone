@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const PORT = process.env.PORT || 8080;
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -21,7 +22,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.ATLASDB_URL;
 
 
 main()
@@ -108,6 +109,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error.ejs", {message});
 });
 
-app.listen(8080, () => {
-    console.log("server is listening to port 8080");
-});   
+
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+}); 
